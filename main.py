@@ -211,10 +211,15 @@ def captioning():
     return preds[-1]
 
 def output(predict_class, caption):
+    conj = ['are', 'is', 'dog']
     if predict_class == '不是校狗' or caption.find('dog') == -1:
         print(f'{caption} ({predict_class})')
     else:
-        print(f'{predict_class} is{caption[caption.find("dog") + len("dog"):]}')
+        for c in conj:
+            if caption.find(c) != -1:
+                print(f'{predict_class} is{caption[caption.find(c) + len(c):]}')
+                return
+        print(f'{caption} ({predict_class})')
 
 
 if __name__ == '__main__':
